@@ -5,7 +5,6 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Binder;
 import android.util.Log;
 
 public class txContentProvider extends ContentProvider{
@@ -33,23 +32,13 @@ public class txContentProvider extends ContentProvider{
 		
 		Log.i("---justyce---", "content provider created ");
 	
-		Log.i("---caller---", getCallingPackages());
+		Log.i("---caller---", this.getCallingPackage());
 		Intent intent = new Intent(this.getContext() , auth.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		this.getContext().startActivity(intent);
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
-	private String getCallingPackages() {
-	     int caller = Binder.getCallingUid();
-	     Log.i("---uid---", "" + caller);
-	     if (caller == 0) {
-	         return null;
-	     }
-	     return this.getContext().getPackageManager().
-	    		 getPackagesForUid(caller)[0];
-	 }
 
 	@Override
 	public Cursor query(Uri arg0, String[] arg1, String arg2, String[] arg3,
